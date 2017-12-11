@@ -285,9 +285,12 @@ re_t re;
 
 
 // NVRAM data structure located in the flash array.
+#if TARGET
 __attribute__((__section__(".flash_nvram")))
 static nvram_data_t flashy;
-
+#else
+nvram_data_t flashy;
+#endif
 
 
 #define MAX_II_COUNT 8
@@ -314,7 +317,7 @@ extern void timers_set_monome(void);
 extern void timers_unset_monome(void);
 
 // check the event queue
-static void check_events(void);
+void check_events(void);
 
 // handler protos
 static void handler_None(s32 data) { ;; }
@@ -2455,9 +2458,9 @@ void flash_read(void) {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-// main
+// initialize + main
 
-int main(void)
+void initialize_module(void)
 {
 	sysclk_init();
 
@@ -2576,7 +2579,11 @@ int main(void)
 	timer_add(&keyTimer,51,&keyTimer_callback, NULL);
 	// adc timer is added inside the monome connect handler
 	// timer_add(&adcTimer,61,&adcTimer_callback, NULL);
+}
 
+int main(void)
+{
+	initialize_module();
 
 	while (true) {
 		check_events();
