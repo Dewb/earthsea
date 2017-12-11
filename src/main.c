@@ -285,11 +285,17 @@ re_t re;
 
 
 // NVRAM data structure located in the flash array.
-#if TARGET
+#ifdef TARGET
 __attribute__((__section__(".flash_nvram")))
 static nvram_data_t flashy;
 #else
 nvram_data_t flashy;
+#ifdef DECLARE_NVRAM
+DECLARE_NVRAM(&flashy, sizeof(nvram_data_t))
+#endif
+#ifdef DECLARE_VRAM
+DECLARE_VRAM(&es, sizeof(es_set))
+#endif
 #endif
 
 
@@ -1528,8 +1534,12 @@ static void refresh() {
 
 	// PATTERN INDICATION
 	if(p_playing) {
+#ifdef TARGET
 		i2 = p_timer_total / (es.p[p_select].total_time / 16);
-
+#else
+		// avoid divide by zero on x86
+		i2 = es.p[p_select].total_time == 0 ? 0 : p_timer_total / (es.p[p_select].total_time / 16);
+#endif
 		for(i1=0;i1<16;i1++)
 			if(i1 < i2) monomeLedBuffer[i1] = 4;
 
