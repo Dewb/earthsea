@@ -62,25 +62,25 @@ TARGET = $(THIS).elf
 
 # List of C source files.
 CSRCS = \
-       ../src/main.c    \
-       ../libavr32/src/adc.c     \
-       ../libavr32/src/events.c     \
-       ../libavr32/src/init_trilogy.c \
-       ../libavr32/src/init_common.c \
-       ../libavr32/src/i2c.c \
-       ../libavr32/src/interrupts.c \
-       ../libavr32/src/monome.c \
-       ../libavr32/src/timers.c \
-       ../libavr32/src/notes.c \
-       ../libavr32/src/usb.c \
-       ../libavr32/src/util.c \
-       ../libavr32/src/usb/ftdi/ftdi.c \
-       ../libavr32/src/usb/ftdi/uhi_ftdi.c \
-       ../libavr32/src/usb/hid/hid.c \
-       ../libavr32/src/usb/hid/uhi_hid.c \
-       ../libavr32/src/usb/midi/uhi_midi.c \
-       ../libavr32/src/usb/midi/midi.c \
-       ../libavr32/src/usb/msc/msc.c \
+       ../src/main.c                                      \
+       ../libavr32/src/adc.c                              \
+       ../libavr32/src/events.c                           \
+       ../libavr32/src/init_trilogy.c                     \
+       ../libavr32/src/init_common.c                      \
+			 ../libavr32/src/interrupts.c                       \
+       ../libavr32/src/i2c.c                              \
+       ../libavr32/src/monome.c                           \
+       ../libavr32/src/timers.c                           \
+       ../libavr32/src/notes.c                            \
+       ../libavr32/src/usb.c                              \
+       ../libavr32/src/util.c                             \
+       ../libavr32/src/usb/ftdi/ftdi.c                    \
+       ../libavr32/src/usb/ftdi/uhi_ftdi.c                \
+       ../libavr32/src/usb/hid/hid.c                      \
+       ../libavr32/src/usb/hid/uhi_hid.c                  \
+       ../libavr32/src/usb/midi/uhi_midi.c                \
+       ../libavr32/src/usb/midi/midi.c                    \
+			 ../libavr32/src/usb/msc/msc.c                      \
        avr32/drivers/adc/adc.c                            \
        avr32/drivers/flashc/flashc.c                      \
        avr32/drivers/gpio/gpio.c                          \
@@ -90,14 +90,14 @@ CSRCS = \
        avr32/drivers/pm/power_clocks_lib.c                \
        avr32/drivers/spi/spi.c                            \
        avr32/drivers/tc/tc.c                              \
-       avr32/drivers/twi/twi.c                              \
+       avr32/drivers/twi/twi.c                            \
        avr32/drivers/usart/usart.c                        \
        avr32/drivers/usbb/usbb_host.c                     \
        avr32/utils/debug/print_funcs.c                    \
        common/services/usb/class/msc/host/uhi_msc.c       \
        common/services/usb/class/msc/host/uhi_msc_mem.c   \
-       common/services/spi/uc3_spi/spi_master.c \
-       common/services/usb/uhc/uhc.c \
+       common/services/spi/uc3_spi/spi_master.c           \
+       common/services/usb/uhc/uhc.c                      \
        common/services/clock/uc3b0_b1/sysclk.c
 
 # List of assembler source files.
@@ -108,15 +108,15 @@ ASSRCS = \
 
 # List of include paths.
 INC_PATH = \
-       ../../src           \
-       ../src                                        \
-       ../src/usb \
-       ../src/usb/ftdi \
-       ../src/usb/hid \
-       ../src/usb/midi \
-       ../src/usb/msc \
-       ../conf      \
-       ../conf/trilogy \
+       ../../src                                          \
+       ../src                                             \
+       ../src/usb                                         \
+       ../src/usb/ftdi                                    \
+       ../src/usb/hid                                     \
+       ../src/usb/midi                                    \
+			 ../src/usb/msc                                     \
+       ../conf                                            \
+       ../conf/trilogy                                    \
        avr32/boards                                       \
        avr32/drivers/cpu/cycle_counter                    \
        avr32/drivers/flashc                               \
@@ -125,23 +125,23 @@ INC_PATH = \
        avr32/drivers/pm                                   \
        avr32/drivers/spi                                  \
        avr32/drivers/tc                                   \
-       avr32/drivers/twi                                   \
+       avr32/drivers/twi                                  \
        avr32/drivers/usart                                \
        avr32/drivers/usbb                                 \
        avr32/utils                                        \
        avr32/utils/debug                                  \
        avr32/utils/preprocessor                           \
        common/boards                                      \
-       common/boards/user_board \
+       common/boards/user_board                           \
        common/services/storage/ctrl_access                \
        common/services/clock                              \
        common/services/delay                              \
-       common/services/usb/ \
-       common/services/usb/uhc \
+       common/services/usb/                               \
+       common/services/usb/uhc                            \
        common/services/usb/class/msc                      \
        common/services/usb/class/msc/host                 \
        common/services/usb/class/hid                      \
-       common/services/spi/uc3_spi \
+       common/services/spi/uc3_spi                        \
        common/utils
 
 # Additional search paths for libraries.
@@ -183,7 +183,7 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
-      -D BOARD=USER_BOARD -D UHD_ENABLE -D EARTHSEA                            
+      -D BOARD=USER_BOARD -D UHD_ENABLE
 
 # Extra flags to use when linking
 LDFLAGS = \
