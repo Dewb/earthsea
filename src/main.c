@@ -387,23 +387,23 @@ static softTimer_t midiPollTimer = { .next = NULL, .prev = NULL };
 static void aout_write(void) {
 	// cpu_irq_disable_level(APP_TC_IRQ_PRIORITY);
 
-	spi_selectChip(SPI,DAC_SPI_NPCS);
-	spi_write(SPI,0x31);
-	spi_write(SPI,aout[2].now>>4);
-	spi_write(SPI,aout[2].now<<4);
-	spi_write(SPI,0x31);
-	spi_write(SPI,aout[0].now>>4);
-	spi_write(SPI,aout[0].now<<4);
-	spi_unselectChip(SPI,DAC_SPI_NPCS);
+	spi_selectChip(DAC_SPI, DAC_SPI_NPCS);
+	spi_write(DAC_SPI, 0x31);
+	spi_write(DAC_SPI, aout[2].now>>4);
+	spi_write(DAC_SPI, aout[2].now<<4);
+	spi_write(DAC_SPI, 0x31);
+	spi_write(DAC_SPI, aout[0].now>>4);
+	spi_write(DAC_SPI, aout[0].now<<4);
+	spi_unselectChip(DAC_SPI, DAC_SPI_NPCS);
 
-	spi_selectChip(SPI,DAC_SPI_NPCS);
-	spi_write(SPI,0x38);
-	spi_write(SPI,aout[3].now>>4);
-	spi_write(SPI,aout[3].now<<4);
-	spi_write(SPI,0x38);
-	spi_write(SPI,aout[1].now>>4);
-	spi_write(SPI,aout[1].now<<4);
-	spi_unselectChip(SPI,DAC_SPI_NPCS);
+	spi_selectChip(DAC_SPI, DAC_SPI_NPCS);
+	spi_write(DAC_SPI, 0x38);
+	spi_write(DAC_SPI, aout[3].now>>4);
+	spi_write(DAC_SPI, aout[3].now<<4);
+	spi_write(DAC_SPI, 0x38);
+	spi_write(DAC_SPI, aout[1].now>>4);
+	spi_write(DAC_SPI, aout[1].now<<4);
+	spi_unselectChip(DAC_SPI, DAC_SPI_NPCS);
 
 	// cpu_irq_enable_level(APP_TC_IRQ_PRIORITY);
 }
@@ -1324,17 +1324,17 @@ static void shape(u8 s, u8 x, u8 y) {
 	if(!arp && r_status == rOff && !port_active) {
 		// cpu_irq_disable_level(APP_TC_IRQ_PRIORITY);
 
-		spi_selectChip(SPI,DAC_SPI_NPCS);
+		spi_selectChip(DAC_SPI, DAC_SPI_NPCS);
 
-		spi_write(SPI,0x38);	// update B
-		spi_write(SPI,aout[3].now>>4);
-		spi_write(SPI,aout[3].now<<4);
+		spi_write(DAC_SPI, 0x38);	// update B
+		spi_write(DAC_SPI, aout[3].now>>4);
+		spi_write(DAC_SPI, aout[3].now<<4);
 
-		spi_write(SPI,0x80);	// update B
-		spi_write(SPI,0xff);
-		spi_write(SPI,0xff);
+		spi_write(DAC_SPI, 0x80);	// update B
+		spi_write(DAC_SPI, 0xff);
+		spi_write(DAC_SPI, 0xff);
 
-		spi_unselectChip(SPI,DAC_SPI_NPCS);
+		spi_unselectChip(DAC_SPI, DAC_SPI_NPCS);
 
 		// cpu_irq_enable_level(APP_TC_IRQ_PRIORITY);
 	}
@@ -1426,17 +1426,17 @@ static void pattern_shape(u8 s, u8 x, u8 y) {
 		if(!port_active) {
 			// cpu_irq_disable_level(APP_TC_IRQ_PRIORITY);
 
-			spi_selectChip(SPI,DAC_SPI_NPCS);
+			spi_selectChip(DAC_SPI, DAC_SPI_NPCS);
 
-			spi_write(SPI,0x38);	// update B
-			spi_write(SPI,aout[3].now>>4);
-			spi_write(SPI,aout[3].now<<4);
+			spi_write(DAC_SPI, 0x38);	// update B
+			spi_write(DAC_SPI, aout[3].now>>4);
+			spi_write(DAC_SPI, aout[3].now<<4);
 
-			spi_write(SPI,0x80);	// update B
-			spi_write(SPI,0xff);
-			spi_write(SPI,0xff);
+			spi_write(DAC_SPI, 0x80);	// update B
+			spi_write(DAC_SPI, 0xff);
+			spi_write(DAC_SPI, 0xff);
 
-			spi_unselectChip(SPI,DAC_SPI_NPCS);
+			spi_unselectChip(DAC_SPI, DAC_SPI_NPCS);
 			// cpu_irq_enable_level(APP_TC_IRQ_PRIORITY);
 		}
 
@@ -2477,7 +2477,7 @@ int main(void)
 	init_usb_host();
 	init_monome();
 
-	init_i2c_slave(0x50);
+	init_i2c_follower(0x50);
 
 
 	print_dbg("\r\n\n// earthsea! //////////////////////////////// ");
@@ -2562,11 +2562,11 @@ int main(void)
 	// clock_external = !gpio_get_pin_value(B09);
 
 	// setup daisy chain for two dacs
-	spi_selectChip(SPI,DAC_SPI_NPCS);
-	spi_write(SPI,0x80);
-	spi_write(SPI,0xff);
-	spi_write(SPI,0xff);
-	spi_unselectChip(SPI,DAC_SPI_NPCS);
+	spi_selectChip(DAC_SPI, DAC_SPI_NPCS);
+	spi_write(DAC_SPI, 0x80);
+	spi_write(DAC_SPI, 0xff);
+	spi_write(DAC_SPI, 0xff);
+	spi_unselectChip(DAC_SPI, DAC_SPI_NPCS);
 
 	// ensure cvTimer_callback does something
 	slew_active = 1;
