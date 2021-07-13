@@ -213,7 +213,7 @@ typedef struct {
 	pattern_t p[16];
 } es_set;
 
-typedef const struct {
+typedef struct {
 	u8 fresh;
 	u8 preset_select;
 	u8 glyph[8][8];
